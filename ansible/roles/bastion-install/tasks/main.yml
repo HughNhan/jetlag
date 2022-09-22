@@ -31,7 +31,8 @@
   block:
   - name: Clean lab interfaces
     shell: |
-      /root/clean-interfaces.sh --nuke
+      echo "HN skip"
+      #/root/clean-interfaces.sh --nuke
 
   - name: Restart NetworkManager to remove lab interfaces
     systemd:

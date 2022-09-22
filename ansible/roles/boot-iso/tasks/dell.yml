@@ -103,6 +103,7 @@
           - CD
           - DVD
         resource_id: iDRAC.Embedded.1
+        timeout: 120
 
     - name: DELL - Restart system power gracefully
       community.general.redfish_command:

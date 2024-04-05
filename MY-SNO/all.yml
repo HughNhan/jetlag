@@ -1,0 +1,92 @@
+---
+# Sample vars file
+################################################################################
+# Lab & cluster infrastructure vars
+################################################################################
+# Which lab to be deployed into (Ex scalelab)
+#lab: byol
+lab: scalelab
+# Which cloud in the lab environment (Ex cloud42)
+lab_cloud: na
+
+# Either bm or rwn or sno
+cluster_type: sno
+
+# Applies to both bm/rwn clusters
+worker_node_count:
+
+# Applies to sno clusters
+sno_node_count: 1
+
+# Lab Network type, applies to sno cluster_type only
+# Set this variable if you want to host your SNO cluster on lab public routable
+# VLAN network, set this ONLY if you have public routable VLAN enabled in your
+# scalelab cloud
+public_vlan: true
+
+# Versions are controlled by this release image. If you want to change images
+# you must stop and rm all assisted-installer containers on the bastion and rerun
+# the setup-bastion step in order to setup your bastion's assisted-installer to
+# the version you specified
+ocp_release_image: quay.io/openshift-release-dev/ocp-release:4.15.2-x86_64
+
+# This should just match the above release image version (Ex: 4.15)
+openshift_version: "4.15"
+
+# Either "OVNKubernetes" or "OpenShiftSDN" (Only for BM/RWN cluster types)
+networktype: OVNKubernetes
+
+# Enables FIPs security standard
+enable_fips: false
+
+ssh_private_key_file: ~/.ssh/id_rsa
+ssh_public_key_file: ~/.ssh/id_rsa.pub
+# Place your pull_secret.txt in the base directory of the cloned jetlag repo, Example:
+# [user@fedora jetlag]$ ls pull_secret.txt
+pull_secret: "{{ lookup('file', '../pull_secret.txt') }}"
+
+################################################################################
+# Bastion node vars
+################################################################################
+bastion_cluster_config_dir: /root/{{ cluster_type }}
+
+smcipmitool_url:
+
+bastion_lab_interface: eno1
+bastion_controlplane_interface: eno4
+
+# vlaned interfaces are for remote worker node clusters only
+bastion_vlaned_interface: ens1f1
+
+# Sets up Gogs a self-hosted git service on the bastion
+setup_bastion_gogs: false
+
+# Set to enable and sync container images into a container image registry on the bastion
+setup_bastion_registry: false
+
+# Use in conjunction with ipv6 based clusters
+use_bastion_registry: false
+
+################################################################################
+# OCP node vars
+################################################################################
+# Network configuration for all bm cluster and rwn control-plane nodes
+controlplane_lab_interface: eno1np0
+
+# Network configuration for public VLAN based sno cluster_type deployment
+controlplane_pub_network_cidr:
+controlplane_pub_network_gateway:
+jumbo_mtu: false
+
+# Network only for remote worker nodes
+# Note: these cannot be commented out or bm-deploy will fail
+#       You will need to knowledge of actual interface names.
+rwn_lab_interface: eno1np0
+rwn_network_interface: ens1f1
+
+################################################################################
+# Extra vars
+################################################################################
+# Append override vars below
+
+sno_install_disk: /dev/disk/by-path/pci-0000:00:11.5-ata-4

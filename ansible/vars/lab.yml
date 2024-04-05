@@ -26,6 +26,14 @@ labs:
     ntp_server: clock1.rdu2.redhat.com
     quads: quads.rdu2.scalelab.redhat.com
 
+  byol:
+    dns:
+    - 10.2.70.215
+    - 10.11.5.160
+    foreman: foreman.rdu2.scalelab.redhat.com
+    ntp_server: clock1.rdu2.redhat.com
+    quads: quads.rdu2.scalelab.redhat.com
+
 hw_vendor:
   r620: Dell
   r630: Dell

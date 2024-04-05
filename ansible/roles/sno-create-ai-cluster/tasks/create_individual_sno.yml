@@ -12,7 +12,7 @@
       mac_interface_map: "{{ lookup('template', 'mac_interface_map.json.j2')  }}"
   when:
   - lab in rh_labs
-  - use_bastion_registry
+#  - use_bastion_registry
 
 - name: Assemble controlplane static network config
   set_fact:
@@ -27,7 +27,7 @@
   set_fact:
     static_network_config: "{{ static_network_config + [ item_network_config ] }}"
   when:
-  - use_bastion_registry
+#  - use_bastion_registry
 
 - name: Create SNO cluster
   uri:
@@ -85,10 +85,11 @@
     status_code: [201]
     return_content: true
     body: {
-        "static_network_config": "{{ static_network_config }}",
-        "ignition_config_override": "{{ lookup('template', 'disconnected-discovery.ign.j2') | to_json }}",
+        "static_network_config": "{{ static_network_config }}"
+#        "static_network_config": "{{ static_network_config }}",
+#        "ignition_config_override": "{{ lookup('template', 'disconnected-discovery.ign.j2') | to_json }}",
     }
-  when: use_bastion_registry | default(false)
+#  when: use_bastion_registry | default(false)
 
 - name: Append cluster ids
   set_fact:

@@ -1,0 +1,55 @@
+# Create inventory playbook will generate this for you much easier
+[all:vars]
+#allocation_node_count=1
+supermicro_nodes=False
+
+[bastion]
+nfv-intel-3a.perf.eng.bos2.dc.redhat.com ansible_ssh_user=root bmc_address=nfv-intel-3a-drac.perf.eng.bos2.dc.redhat.com
+
+
+[bastion:vars]
+bmc_user=root
+bmc_password=100yard-
+
+[controlplane]
+# Unused
+
+[controlplane:vars]
+# Unused
+
+[worker]
+# Unused
+
+[worker:vars]
+# Unused
+
+[remoteworker]
+# Unused
+
+[remoteworker:vars]
+# Unused
+
+[sno]
+# Single Node OpenShift Clusters
+sno-3d bmc_address=nfv-intel-3d-drac.perf.eng.bos2.dc.redhat.com ip_address=198.18.10.10 vendor=Dell lab_mac=30:d0:42:56:97:c8 network_mac=30:d0:42:56:97:cb install_disk=/dev/disk/by-path/pci-0000:00:11.5-ata-4.0
+
+[sno:vars]
+boot_iso=sno-3d.iso
+bmc_user=root
+bmc_password=100yard-
+lab_interface=eno1
+network_interface=eth0
+network_prefix=24 
+gateway=198.18.10.1
+dns1=198.18.10.1
+#dns2=30:d0:42:56:97:a4
+
+[hv]
+# Unused
+
+[hv:vars]
+# Unused
+
+[hv_vm]
+# none
+
